@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
+
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+ font-family: 'Poppins', sans-serif;
+}
+.grid-background {
+  background-color: #000000; /* Base black */
+  background-image: linear-gradient(to right, #222222 1px, transparent 1px), /* Adjusted grid line color */
+    linear-gradient(to bottom, #222222 1px, transparent 1px); /* Adjusted grid line color */
+  background-size: 40px 40px; /* Adjust grid cell size */
+}
