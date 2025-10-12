@@ -16,6 +16,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
+    
     --background: #0a0a0a;
     --foreground: #ededed;
   }
@@ -31,4 +32,97 @@ body {
   background-image: linear-gradient(to right, #222222 1px, transparent 1px), /* Adjusted grid line color */
     linear-gradient(to bottom, #222222 1px, transparent 1px); /* Adjusted grid line color */
   background-size: 40px 40px; /* Adjust grid cell size */
+}
+
+/* Swiper Screenshot Carousel Styles */
+.screenshot-swiper .swiper-pagination {
+  position: static !important;
+  margin-top: 1rem;
+}
+
+.swiper-pagination-bullet-custom {
+  width: 12px;
+  height: 12px;
+  background: #374151;
+  border-radius: 50%;
+  opacity: 1;
+  margin: 0 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.swiper-pagination-bullet-active-custom {
+  background: #3B82F6;
+  transform: scale(1.2);
+}
+
+.screenshot-swiper .swiper-slide {
+  height: auto;
+}
+
+/* Navbar Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Cursor Pointer Utilities */
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* Interactive Elements */
+button, 
+.btn, 
+[role="button"],
+.clickable,
+.interactive {
+  cursor: pointer;
+}
+
+/* Links and Navigation */
+a:not([disabled]),
+.nav-link,
+.link {
+  cursor: pointer;
+}
+
+/* Form Elements */
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+select,
+.form-control:not([disabled]) {
+  cursor: pointer;
+}
+
+/* Cards and Interactive Components */
+.project-card,
+.card-interactive,
+.hover-card {
+  cursor: pointer;
+}
+
+/* Swiper Navigation */
+.swiper-button-next,
+.swiper-button-prev,
+.swiper-pagination-bullet,
+.swiper-button-next-custom,
+.swiper-button-prev-custom {
+  cursor: pointer;
+}
+
+/* Custom Interactive Elements */
+.tech-tag:hover,
+.filter-button,
+.search-input {
+  cursor: pointer;
 }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaMapMarkerAlt, FaGithub, FaLinkedin } from "react-icons/fa";
 import { MdEmail, MdPhone } from "react-icons/md";
 
 export default function Footer() {
@@ -70,6 +70,50 @@ export default function Footer() {
             <span className="bg-gray-800 text-white px-4 py-2 rounded-lg text-sm font-medium">MongoDB</span>
             <span className="bg-gray-800 text-white px-4 py-2 rounded-lg text-sm font-medium">SQL</span>
             <span className="bg-gray-800 text-white px-4 py-2 rounded-lg text-sm font-medium">and more...</span>
+          </div>
+        </div>
+      </div>
+      
+      {/* Footer Bottom Section */}
+      <div className="border-t border-gray-800 mt-12 pt-8">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+          {/* Social Links */}
+          <div className="flex items-center gap-6">
+            <a 
+              href="https://github.com/dnyandeoShekade" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors duration-200"
+            >
+              <FaGithub className="w-5 h-5" />
+              <span className="text-sm">GitHub</span>
+            </a>
+            <a 
+              href="https://linkedin.com/in/dnyandeo-shekade" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors duration-200"
+            >
+              <FaLinkedin className="w-5 h-5" />
+              <span className="text-sm">LinkedIn</span>
+            </a>
+            <a 
+              href="mailto:shekadednyande@gmail.com"
+              className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors duration-200"
+            >
+              <MdEmail className="w-5 h-5" />
+              <span className="text-sm">Email</span>
+            </a>
+          </div>
+          
+          {/* Copyright */}
+          <div className="text-center md:text-right">
+            <p className="text-gray-400 text-sm">
+              © 2025 Dnyandeo Shekade. All rights reserved.
+            </p>
+            <p className="text-gray-500 text-xs mt-1">
+              Built with ❤️ using Next.js & Tailwind CSS
+            </p>
           </div>
         </div>
       </div>
