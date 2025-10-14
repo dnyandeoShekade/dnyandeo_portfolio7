@@ -11,12 +11,12 @@ import {
   FaExternalLinkAlt,
 } from "react-icons/fa";
 
-// Project Data
+// Project Data 
 const projects = [
   {
     id: "billing-cart",
     slug: "billing-cart",
-    title: "BillingCart Website",
+    title: "BillingCart Web",
     category: "E-commerce B2B",
     subtitle: "Fullstack Developer",
     description:
