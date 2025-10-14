@@ -1,15 +1,13 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FaExternalLinkAlt, FaGithub, FaSearch, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaExternalLinkAlt, FaSearch, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { useComponentLoading } from '../../hooks/usePageLoading';
-import { LoadingSpinner, PageLoading } from '../common/Loading';
 
 const projectsData = {
   'billing-cart': {
@@ -70,29 +68,15 @@ const allProjects = [
   { id: 'yuva-nexus', slug: 'yuva-nexus', title: 'Yuva Nexus Platform', category: 'Yuva Nexus Tech' }
 ];
 
-export default function ProjectPage({ projectSlug }) {
+export default function OptimizedProjectPage({ projectSlug }) {
   const [searchTerm, setSearchTerm] = useState('');
-  const { isLoading, startLoading, stopLoading } = useComponentLoading(true);
   const project = projectsData[projectSlug] || projectsData['billing-cart'];
-
-  useEffect(() => {
-    // Optimized loading for project data
-    startLoading();
-    const timer = setTimeout(() => {
-      stopLoading();
-    }, 150);
-
-    return () => clearTimeout(timer);
-  }, [projectSlug, startLoading, stopLoading]);
   
-  const filteredProjects = allProjects.filter(p => 
-    p.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    p.category.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  if (isLoading) {
-    return <PageLoading />;
-  }
+  const filteredProjects = useMemo(() => 
+    allProjects.filter(p => 
+      p.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      p.category.toLowerCase().includes(searchTerm.toLowerCase())
+    ), [searchTerm]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 text-white">
@@ -131,7 +115,7 @@ export default function ProjectPage({ projectSlug }) {
                   <Link
                     key={proj.id}
                     href={`/project/${proj.slug}`}
-                    className={`block p-4 rounded-lg border transition-all duration-200 cursor-pointer ${
+                    className={`block p-4 rounded-lg border transition-all duration-200 ${
                       proj.slug === project.slug
                         ? 'bg-gradient-to-r from-blue-600/20 to-cyan-600/20 border-blue-400/50 text-blue-300 shadow-lg shadow-blue-500/10'
                         : 'bg-slate-800/30 border-slate-600/30 text-slate-300 hover:border-slate-500/50 hover:bg-slate-700/40 backdrop-blur-sm'
@@ -153,7 +137,7 @@ export default function ProjectPage({ projectSlug }) {
               <Link
                 key={proj.id}
                 href={`/project/${proj.slug}`}
-                className={`flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer ${
+                className={`flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   proj.slug === project.slug
                     ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/20'
                     : 'bg-slate-700/60 text-slate-300 hover:bg-slate-600/70 backdrop-blur-sm border border-slate-600/30'
@@ -201,21 +185,10 @@ export default function ProjectPage({ projectSlug }) {
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm sm:text-base shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 cursor-pointer"
+                      className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm sm:text-base shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40"
                     >
                       <FaExternalLinkAlt className="w-3 h-3 sm:w-4 sm:h-4" />
                       View Live
-                    </a>
-                  )}
-                  {project.githubUrl && (
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full sm:w-auto bg-slate-700/80 hover:bg-slate-600/90 text-slate-100 px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm sm:text-base border border-slate-600/50 hover:border-slate-500/70 backdrop-blur-sm cursor-pointer"
-                    >
-                      <FaGithub className="w-3 h-3 sm:w-4 sm:h-4" />
-                      Source Code
                     </a>
                   )}
                 </div>
@@ -251,7 +224,7 @@ export default function ProjectPage({ projectSlug }) {
                 {project.technologies.map((tech, index) => (
                   <span
                     key={index}
-                    className="bg-gradient-to-r from-slate-700/60 to-slate-600/60 text-slate-200 px-3 sm:px-4 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-medium border border-slate-600/40 hover:border-blue-400/50 transition-all cursor-pointer backdrop-blur-sm hover:shadow-lg hover:shadow-blue-500/10"
+                    className="bg-gradient-to-r from-slate-700/60 to-slate-600/60 text-slate-200 px-3 sm:px-4 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-medium border border-slate-600/40 hover:border-blue-400/50 transition-all backdrop-blur-sm hover:shadow-lg hover:shadow-blue-500/10"
                   >
                     {tech}
                   </span>
@@ -303,7 +276,7 @@ export default function ProjectPage({ projectSlug }) {
                   
                   {/* Custom Navigation Buttons */}
                   <div className="flex justify-between items-center mt-3 sm:mt-4">
-                    <button className="swiper-button-prev-custom bg-slate-700/60 hover:bg-slate-600/80 text-slate-200 p-2 sm:p-3 rounded-full transition-all duration-200 border border-slate-600/50 hover:border-blue-400/50 backdrop-blur-sm cursor-pointer">
+                    <button className="swiper-button-prev-custom bg-slate-700/60 hover:bg-slate-600/80 text-slate-200 p-2 sm:p-3 rounded-full transition-all duration-200 border border-slate-600/50 hover:border-blue-400/50 backdrop-blur-sm">
                       <FaChevronLeft className="w-3 h-3 sm:w-4 sm:h-4" />
                     </button>
                     <div className="flex items-center gap-2">
@@ -311,7 +284,7 @@ export default function ProjectPage({ projectSlug }) {
                         {project.screenshots.length} Screenshots
                       </span>
                     </div>
-                    <button className="swiper-button-next-custom bg-slate-700/60 hover:bg-slate-600/80 text-slate-200 p-2 sm:p-3 rounded-full transition-all duration-200 border border-slate-600/50 hover:border-blue-400/50 backdrop-blur-sm cursor-pointer">
+                    <button className="swiper-button-next-custom bg-slate-700/60 hover:bg-slate-600/80 text-slate-200 p-2 sm:p-3 rounded-full transition-all duration-200 border border-slate-600/50 hover:border-blue-400/50 backdrop-blur-sm">
                       <FaChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
                     </button>
                   </div>
@@ -328,21 +301,10 @@ export default function ProjectPage({ projectSlug }) {
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center sm:justify-start gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-4 py-3 rounded-lg transition-all font-medium text-sm sm:text-base shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 cursor-pointer"
+                    className="flex items-center justify-center sm:justify-start gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-4 py-3 rounded-lg transition-all font-medium text-sm sm:text-base shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40"
                   >
                     <FaExternalLinkAlt className="w-3 h-3 sm:w-4 sm:h-4" />
                     <span>Live Website</span>
-                  </a>
-                )}
-                {project.githubUrl && (
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center sm:justify-start gap-2 bg-slate-700/60 hover:bg-slate-600/80 text-slate-100 px-4 py-3 rounded-lg transition-all font-medium text-sm sm:text-base border border-slate-600/50 hover:border-slate-500/70 backdrop-blur-sm cursor-pointer"
-                  >
-                    <FaGithub className="w-3 h-3 sm:w-4 sm:h-4" />
-                    <span>Source Code</span>
                   </a>
                 )}
               </div>

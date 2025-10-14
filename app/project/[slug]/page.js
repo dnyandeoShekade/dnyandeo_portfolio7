@@ -1,4 +1,4 @@
-import ProjectPage from '../../../components/project/ProjectPage';
+import OptimizedProjectPage from '../../../components/project/OptimizedProjectPage';
 import { getSEO } from '../../action/seo';
 
 // Generate metadata for individual project pages
@@ -12,5 +12,5 @@ export async function generateMetadata({ params }) {
 }
 
 export default function Project({ params }) {
-  return <ProjectPage projectSlug={params.slug} />;
+  return <OptimizedProjectPage projectSlug={params.slug} />;
 }

@@ -11,10 +11,10 @@ export function usePageLoading() {
     // Start loading when pathname changes
     setIsPageLoading(true);
     
-    // Simulate page load time
+    // Reduced loading time for better performance
     const timer = setTimeout(() => {
       setIsPageLoading(false);
-    }, 800);
+    }, 200);
 
     return () => clearTimeout(timer);
   }, [pathname]);
